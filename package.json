@@ -1,0 +1,47 @@
+{
+  "name": "user-service",
+  "version": "1.0.0",
+  "description": "User microservice with TypeORM and PostgreSQL",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "docker-compose up -d && npm run migration:run && ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "migration:generate": "typeorm-ts-node-commonjs migration:generate -d src/config/data-source.ts",
+    "migration:run": "typeorm-ts-node-commonjs migration:run -d src/config/data-source.ts",
+    "migration:revert": "typeorm-ts-node-commonjs migration:revert -d src/config/data-source.ts",
+    "typeorm": "typeorm-ts-node-commonjs"
+  },
+  "keywords": [
+    "user",
+    "microservice",
+    "typeorm",
+    "postgres"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.11.3",
+    "reflect-metadata": "^0.2.1",
+    "typeorm": "^0.3.19"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^20.10.6",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
+  }
+}
