@@ -31,8 +31,8 @@ jobs:
 
       - name: Set up kubeconfig
         run: |
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig
-          export KUBECONFIG=$PWD/kubeconfig
+          echo "${{ secrets.KUBE_CONFIG }}" | tr -d '\n' | base64 -d > kubeconfig
+          chmod 600 kubeconfig
 
       - name: Restart Kubernetes deployment
         run: |
