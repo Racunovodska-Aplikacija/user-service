@@ -18,6 +18,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Debug variables
+        run: |
+          echo "Deployment: $DEPLOYMENT_NAME"
+          echo "Namespace: $NAMESPACE"
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -39,7 +44,7 @@ jobs:
 
       - name: Verify cluster access
         run: |
-          kubectl --kubeconfig=kubeconfig get nodes
+          kubectl --kubeconfig=kubeconfig get deployments -n $NAMESPACE
 
       - name: Restart Kubernetes deployment
         run: |
