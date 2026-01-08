@@ -46,6 +46,13 @@ jobs:
         run: |
           kubectl --kubeconfig=kubeconfig get deployments -n $NAMESPACE
 
-      - name: Restart Kubernetes deployment
+      - name: Wait for deployment to exist
         run: |
-          kubectl rollout restart deployment/$DEPLOYMENT_NAME -n $NAMESPACE
+          DEPLOYMENT_NAME=${{ env.DEPLOYMENT_NAME }}
+          NAMESPACE=${{ env.NAMESPACE }}
+          echo "Waiting for deployment $DEPLOYMENT_NAME in $NAMESPACE"
+          for i in {1..10}; do
+            kubectl --kubeconfig=kubeconfig get deployment/$DEPLOYMENT_NAME -n $NAMESPACE && break
+            echo "Deployment not ready yet... retrying in 5s"
+            sleep 5
+          done
