@@ -56,3 +56,7 @@ jobs:
             echo "Deployment not ready yet... retrying in 5s"
             sleep 5
           done
+
+      - name: Restart deployment
+        run: |
+          kubectl --kubeconfig=kubeconfig rollout restart deployment/${{ env.DEPLOYMENT_NAME }} -n ${{ env.NAMESPACE }}
