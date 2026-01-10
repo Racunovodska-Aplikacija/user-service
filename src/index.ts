@@ -37,7 +37,7 @@ const swaggerOptions = {
     apis: ['./src/routes/*.ts', './src/entities/*.ts'], // Adjust paths as needed
 };
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/user-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Health check
 app.get('/health', (req, res) => {
