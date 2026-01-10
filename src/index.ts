@@ -34,7 +34,7 @@ const swaggerOptions = {
             description: 'API documentation for User Service',
         },
     },
-    apis: ['./src/routes/*.ts', './src/entities/*.ts'], // Adjust paths as needed
+    apis: ['./dist/routes/*.js'], // Point to compiled JavaScript files
 };
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 app.use('/user-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
