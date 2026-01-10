@@ -6,6 +6,9 @@ import { initializeDatabase } from './config/database';
 import authRoutes from './routes/auth.routes';
 import userRoutes from './routes/user.routes';
 
+import swaggerUi from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || 'http://localhost:3000';
@@ -20,6 +23,21 @@ app.use(cors({
 // Routes
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
+
+// Swagger setup
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'User Service API',
+            version: '1.0.0',
+            description: 'API documentation for User Service',
+        },
+    },
+    apis: ['./src/routes/*.ts', './src/entities/*.ts'], // Adjust paths as needed
+};
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Health check
 app.get('/health', (req, res) => {
